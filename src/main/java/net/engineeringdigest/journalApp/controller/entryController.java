@@ -8,12 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
 @RequestMapping("/journal")
-public class JournalEntryController {
+public class entryController {
 
     @Autowired
     private entryService entryService;
@@ -49,13 +48,13 @@ public class JournalEntryController {
         }
     }
 
-    @DeleteMapping("/delete/{myID}")
+    @DeleteMapping("/id/{myID}")
     public ResponseEntity<?> deleteID(@PathVariable ObjectId myID){
         entryService.delete(myID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/updateid/{myID}")
+    @PutMapping("/id/{myID}")
     public ResponseEntity<?> update(@PathVariable ObjectId myID , @RequestBody JournalEntry newEntry ){
         JournalEntry oldEntry = entryService.findId(myID).orElse(null);
         if(oldEntry != null){
