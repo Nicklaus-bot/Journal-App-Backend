@@ -31,7 +31,6 @@ public class JournalEntryController {
     @PostMapping
     public ResponseEntity<JournalEntry> saveEntry(@RequestBody JournalEntry myEntry) {
         try{
-            myEntry.setDate(LocalDateTime.now());
             entryService.saveEntry(myEntry);
             return new ResponseEntity<>(myEntry , HttpStatus.OK);
         } catch (Exception e) {
@@ -60,11 +59,11 @@ public class JournalEntryController {
     public ResponseEntity<?> update(@PathVariable ObjectId myID , @RequestBody JournalEntry newEntry ){
         JournalEntry oldEntry = entryService.findId(myID).orElse(null);
         if(oldEntry != null){
-            if(newEntry.gettitle() != null){
-                oldEntry.settitle(newEntry.gettitle());
+            if(newEntry.getTitle() != null){
+                oldEntry.setTitle(newEntry.getTitle());
             }
-            if(newEntry.getcontent() != null){
-                oldEntry.setcontent(newEntry.getcontent());
+            if(newEntry.getContent() != null){
+                oldEntry.setContent(newEntry.getContent());
             }
             saveEntry(oldEntry);
 
