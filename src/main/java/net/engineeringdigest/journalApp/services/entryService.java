@@ -6,6 +6,7 @@ import net.engineeringdigest.journalApp.repository.entryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -18,6 +19,7 @@ public class entryService {
     @Autowired
     private userService userService;
 
+    @Transactional
     public void saveEntry(JournalEntry journalEntry , String username){
         user user = userService.findBy(username);
         journalEntry.setDate(LocalDateTime.now());
@@ -38,6 +40,7 @@ public class entryService {
         return entryRepository.findById(id);
     }
 
+    @Transactional
     public void delete(ObjectId id , String username){
         user user = userService.findBy(username);
         user.getList().removeIf(x -> x.getId().equals(id));
