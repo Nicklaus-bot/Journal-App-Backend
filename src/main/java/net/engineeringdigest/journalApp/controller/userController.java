@@ -16,13 +16,20 @@ public class userController {
     private userService userService;
 
     @GetMapping
-    public List<user> getAll(){
-        return userService.getAll();
+    public ResponseEntity<?> getAll(){
+        return new ResponseEntity<>(userService.getAll() , HttpStatus.OK);
     }
 
     @PostMapping
-    public void save(@RequestBody user user){
-        userService.save(user);
+    public ResponseEntity<?> save(@RequestBody user user){
+        try{
+            userService.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PutMapping("/{username}")
