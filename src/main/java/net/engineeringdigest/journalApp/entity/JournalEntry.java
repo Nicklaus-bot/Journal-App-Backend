@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JournalEntry {
     @Id
-    private ObjectId id;
+    private ObjectId Id;
 
-    private String title;
-    private String content;
-    private LocalDateTime date;
+    private String Title;
+    private String Content;
+    private LocalDateTime Date;
 }

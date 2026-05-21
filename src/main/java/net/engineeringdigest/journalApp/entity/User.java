@@ -15,7 +15,7 @@ import java.util.List;
 @Document(collection = "users")
 @Data
 @NoArgsConstructor
-public class user {
+public class User {
     @Id
     private ObjectId Id;
 
@@ -27,5 +27,7 @@ public class user {
     private String Password;
 
     @DBRef
-    private List<JournalEntry> List = new ArrayList<>();
+    private List<JournalEntry> Entries = new ArrayList<>();
+
+    private List<String> Roles;
 }

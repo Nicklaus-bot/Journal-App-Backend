@@ -1,9 +1,9 @@
 package net.engineeringdigest.journalApp.controller;
 
 import net.engineeringdigest.journalApp.entity.JournalEntry;
-import net.engineeringdigest.journalApp.entity.user;
-import net.engineeringdigest.journalApp.services.entryService;
-import net.engineeringdigest.journalApp.services.userService;
+import net.engineeringdigest.journalApp.entity.User;
+import net.engineeringdigest.journalApp.services.JournalEntryService;
+import net.engineeringdigest.journalApp.services.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,19 +14,19 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/journal")
-public class entryController {
+public class JournalEntryController {
 
     @Autowired
-    private entryService entryService;
+    private JournalEntryService entryService;
 
     @Autowired
-    private userService userService;
+    private UserService userService;
 
 
     @GetMapping("/{username}")
     public ResponseEntity<?> allEntries(@PathVariable String username) {
-        user user = userService.findBy(username);
-        List<JournalEntry> all = user.getList();
+        User user = userService.findBy(username);
+        List<JournalEntry> all = user.getEntries();
         if(all != null && !all.isEmpty()){
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -45,7 +45,7 @@ public class entryController {
         }
     }
 
-    @GetMapping("/id/{myID}")
+    @GetMapping("/{myID}")
     public ResponseEntity<JournalEntry> getEntry(@PathVariable ObjectId myID){
         Optional<JournalEntry> entry = entryService.findId(myID);
         if(entry.isPresent()){
