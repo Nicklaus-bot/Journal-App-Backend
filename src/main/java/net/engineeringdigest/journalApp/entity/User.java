@@ -17,17 +17,17 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     @Id
-    private ObjectId Id;
+    private ObjectId id;
 
     @Indexed(unique = true)
     @NonNull
-    private String Username;
+    private String username;
 
     @NonNull
-    private String Password;
+    private String password;
 
     @DBRef
-    private List<JournalEntry> Entries = new ArrayList<>();
+    private List<JournalEntry> entries = new ArrayList<>();
 
-    private List<String> Roles;
+    private List<String> roles;
 }

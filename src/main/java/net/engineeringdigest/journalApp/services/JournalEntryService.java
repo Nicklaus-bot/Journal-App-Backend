@@ -21,11 +21,11 @@ public class JournalEntryService {
 
     @Transactional
     public void saveEntry(JournalEntry journalEntry , String username){
-        User user = userService.findBy(username);
+        User user = userService.findByUsername(username);
         journalEntry.setDate(LocalDateTime.now());
         JournalEntry saved = entryRepository.save(journalEntry);
         user.getEntries().add(saved);
-        userService.save(user);
+        userService.saveUser(user);
     }
 
     public void saveEntry(JournalEntry journalEntry){
@@ -42,9 +42,9 @@ public class JournalEntryService {
 
     @Transactional
     public void delete(ObjectId id , String username){
-        User user = userService.findBy(username);
+        User user = userService.findByUsername(username);
         user.getEntries().removeIf(x -> x.getId().equals(id));
-        userService.save(user);
+        userService.saveUser(user);
         entryRepository.deleteById(id);
     }
 

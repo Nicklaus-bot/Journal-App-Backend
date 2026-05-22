@@ -5,6 +5,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, ObjectId> {
-    public User findBy(String username);
-    public void delete(String username);
+    public User findByUsername(String username);
+    public void deleteByUsername(String username);
 }

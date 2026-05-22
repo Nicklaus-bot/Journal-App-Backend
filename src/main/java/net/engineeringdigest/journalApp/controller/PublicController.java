@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.controller;
 
+import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,13 @@ public class PublicController {
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<?> save(@RequestBody User user){
+    public ResponseEntity<User> save(@RequestBody User user){
         try{
-            userService.save(user);
+            userService.saveUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }

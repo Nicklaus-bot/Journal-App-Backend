@@ -15,24 +15,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    public static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<User> getAll(){
         return userRepository.findAll();
     }
 
-    public void save(User User){
-        User.setPassword(passwordEncoder.encode(User.getPassword()));
-        User.setRoles(Arrays.asList("Users"));
-        userRepository.save(User);
+    public void saveUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList("Users"));
+        userRepository.save(user);
     }
 
-    public User findBy(String username){
-        return userRepository.findBy(username);
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
-    public void delete(String username){
-        userRepository.delete(username);
+    public void deleteByUsername(String username){
+        userRepository.deleteByUsername(username);
     }
 
 }
