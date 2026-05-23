@@ -5,10 +5,7 @@ import net.engineeringdigest.journalApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,9 +28,13 @@ public class AdminController {
 
     // make an admin manually on mongo atlas else this post will never get called
     @PostMapping("/create-admin-user")
-    public void createUser(User user){
-        userService.saveAdmin(user);
+    public ResponseEntity<User> createAdmin(@RequestBody User user){
+        try{
+            userService.saveAdmin(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
-
 
 }
