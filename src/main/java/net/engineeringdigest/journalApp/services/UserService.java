@@ -2,6 +2,8 @@ package net.engineeringdigest.journalApp.services;
 
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,14 +19,25 @@ public class UserService {
 
     public static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     public List<User> getAll(){
         return userRepository.findAll();
     }
 
     public void saveNewUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("Users"));
-        userRepository.save(user);
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("Users"));
+            userRepository.save(user);
+        }
+        catch(Exception e){
+            logger.info("Info Error");
+            logger.error("Error occurred for {} :" , user.getUsername() , e);
+            logger.warn("Warning");
+            logger.debug("Debug");
+            logger.trace("Trace");
+        }
     }
 
     public void saveUser(User user){
