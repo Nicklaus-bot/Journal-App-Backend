@@ -1,14 +1,15 @@
-package net.engineeringdigest.journalApp.services;
+package net.journalApp.services;
 
-import net.engineeringdigest.journalApp.entity.User;
-import net.engineeringdigest.journalApp.repository.UserRepository;
+import net.journalApp.entity.User;
+import net.journalApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserDetailServices implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;

@@ -1,4 +1,4 @@
-package net.engineeringdigest.journalApp.config;
+package net.journalApp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
